@@ -280,4 +280,7 @@
     const isInside = navPanel?.contains(e.target) || navToggle?.contains(e.target);
     if (!isInside) closeDrawer();
   });
+  // Auto year in footer
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();
