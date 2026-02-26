@@ -191,7 +191,6 @@
   // -------------------------
   // Scroll reveal animations (no CSS changes needed)
   // -------------------------
-  // Targets: common content blocks + anything you add with data-reveal
   const revealTargets = [
     ...qsa("[data-reveal]"),
     ...qsa(".paper, .paper-card, .paper-note, .paper-actions, .tile, .section, .callout"),
@@ -240,7 +239,6 @@
 
       revealTargets.forEach((el) => rio.observe(el));
     } else {
-      // Fallback: reveal immediately
       revealTargets.forEach(animateIn);
     }
   }
@@ -255,6 +253,7 @@
   const openDrawer = () => {
     if (!navPanel) return;
     navPanel.hidden = false;
+    navPanel.classList.add("is-open"); // required for slide-in CSS
     navToggle?.setAttribute("aria-expanded", "true");
     drawerState.open = true;
     track("nav_open", { path: location.pathname });
@@ -262,17 +261,61 @@
 
   const closeDrawer = () => {
     if (!navPanel) return;
-    navPanel.hidden = true;
+    navPanel.classList.remove("is-open");
     navToggle?.setAttribute("aria-expanded", "false");
     drawerState.open = false;
+
+    // Wait for slide-out transition, then hide (prevents click-through)
+    window.setTimeout(() => {
+      if (!drawerState.open) navPanel.hidden = true;
+    }, 260);
   };
 
   navToggle?.addEventListener("click", () => {
     drawerState.open ? closeDrawer() : openDrawer();
   });
 
+  // -------------------------
+  // Desktop dropdowns: click-to-open + hover still works
+  // -------------------------
+  const dropdownItems = qsa(".nav-item.has-dropdown");
+  const closeAllDropdowns = () => dropdownItems.forEach((i) => i.classList.remove("is-open"));
+
+  dropdownItems.forEach((item) => {
+    const link = qs(".top-link", item);
+    if (!link) return;
+
+    link.addEventListener("click", (e) => {
+      // If it's already open, allow navigation on second click
+      if (item.classList.contains("is-open")) return;
+
+      // First click opens the dropdown instead of navigating
+      e.preventDefault();
+
+      // Close others, open this one
+      closeAllDropdowns();
+      item.classList.add("is-open");
+    });
+  });
+
+  // Close dropdowns on outside click (but ignore clicks inside dropdown)
+  document.addEventListener("click", (e) => {
+    const clickedDropdownItem = e.target?.closest?.(".nav-item.has-dropdown");
+    const clickedDropdownPanel = e.target?.closest?.(".dropdown");
+
+    if (!clickedDropdownItem && !clickedDropdownPanel) {
+      closeAllDropdowns();
+    }
+  });
+
+  // -------------------------
+  // Global ESC + outside click handling
+  // -------------------------
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeDrawer();
+    if (e.key === "Escape") {
+      closeAllDropdowns();
+      closeDrawer();
+    }
   });
 
   document.addEventListener("click", (e) => {
@@ -280,7 +323,10 @@
     const isInside = navPanel?.contains(e.target) || navToggle?.contains(e.target);
     if (!isInside) closeDrawer();
   });
+
+  // -------------------------
   // Auto year in footer
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // -------------------------
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 })();
