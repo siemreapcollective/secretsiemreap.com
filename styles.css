@@ -93,9 +93,18 @@ img{ max-width:100%; height:auto; display:block; }
 
   /* inset the whole header to match your page frame */
   padding: 0 var(--page-pad);
+
+  transition:
+    height 220ms var(--ease),
+    padding 220ms var(--ease);
 }
 
-/* inset bottom border so it aligns with the hero edges */
+/* Compact header */
+.site-header.is-compact{
+  height: 45px;
+
+}
+
 .site-header::after{
   content:"";
   position:absolute;
@@ -112,21 +121,24 @@ img{ max-width:100%; height:auto; display:block; }
   margin-inline:auto;
   display:flex;
   align-items:center;
-  justify-content:flex-end;
+  justify-content:space-between;
   gap: 16px;
   pointer-events: auto;
 }
 
-.brand{ display:block; }
-
-.nav-logo{
-  width: clamp(160px, 18vw, 240px);
-  height: auto;
-  filter: drop-shadow(0 12px 36px rgba(0,0,0,.12));
+.site-header.is-compact .nav-inner{
+  width: 100%;
+  margin-inline: 0;
 }
 
-.nav{ position: relative; }
+.nav{ 
+  position: relative; 
+  display:flex;
+  align-items:center;
+  width: 100%;
+}
 
+/* Ensure desktop links sit left, hamburger sits right when shown */
 .top-nav{
   margin: 0;
   padding: 0;
@@ -134,22 +146,7 @@ img{ max-width:100%; height:auto; display:block; }
   display:flex;
   align-items:center;
   gap: clamp(34px, 4.8vw, 86px);
-}
-
-.top-link{
-  text-decoration:none;
-  font-size: 12px;
-  letter-spacing: var(--track-caps);
-  text-transform: uppercase;
-  font-weight: 400;
-  padding: 12px 0 14px;
-  border-bottom: 1px solid transparent;
-  color:#1a1a1a;
-}
-
-.top-link:hover,
-.nav-item.is-open > .top-link{
-  border-bottom-color: color-mix(in oklab, var(--gold) 55%, transparent);
+  justify-content:flex-start;
 }
 
 .nav-toggle{
@@ -163,7 +160,10 @@ img{ max-width:100%; height:auto; display:block; }
   place-items:center;
   cursor:pointer;
   color: #1a1a1a;
+
+  margin-left: auto; /* push to far right */
 }
+
 .nav-toggle-bars{
   display:block;
   width: 28px;
@@ -185,6 +185,42 @@ img{ max-width:100%; height:auto; display:block; }
 .nav-toggle-bars::before{ top:-7px; }
 .nav-toggle-bars::after{ top:7px; }
 
+.top-link{
+  text-decoration:none;
+  font-size: 12px;
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 12px 0 14px;
+  border-bottom: 1px solid transparent;
+  color:#1a1a1a;
+}
+
+.top-link:hover,
+.nav-item.is-open > .top-link{
+  border-bottom-color: color-mix(in oklab, var(--gold) 55%, transparent);
+}
+
+/* In compact mode: keep only selected items visible */
+.site-header.is-compact .top-nav .nav-item:not(.keep-compact){
+  display:none;
+}
+
+/* In compact mode: slightly tighter vertical rhythm */
+.site-header.is-compact .top-link{
+  padding: 8px 0 8px;
+}
+
+/* In compact mode: show hamburger on desktop too */
+.site-header.is-compact .nav-toggle{
+  display:grid;
+}
+
+/* Compact header: force link list left, hamburger right */
+.site-header.is-compact .top-nav{ order: 1; }
+.site-header.is-compact .nav-toggle{ order: 2; margin-left: auto;
+}
+
 /* Mobile drawer */
 .nav-panel{
   position: fixed;
@@ -200,6 +236,7 @@ img{ max-width:100%; height:auto; display:block; }
   z-index: 2500;
 }
 .nav-panel.is-open{ transform: translateX(0); }
+
 .nav-panel-inner{
   padding: calc(var(--page-pad) + 18px + env(safe-area-inset-top, 0px)) 18px 18px;
   display:flex;
@@ -224,7 +261,6 @@ img{ max-width:100%; height:auto; display:block; }
 
 .nav-item.has-dropdown{ position: relative; }
 
-/* Hover bridge so menu doesn't collapse when moving slowly */
 .nav-item.has-dropdown::after{
   content:"";
   position:absolute;
@@ -310,7 +346,7 @@ img{ max-width:100%; height:auto; display:block; }
 .dd-link:hover{ background: rgba(0,0,0,.03); }
 
 /* =========================================================
-   MAIN OFFSET (so fixed header never overlaps content)
+   MAIN OFFSET
    ========================================================= */
 main{
   padding-top: calc(var(--header-h));
@@ -604,7 +640,6 @@ main{
   border-bottom-color: var(--gold);
 }
 
-/* ===== GEO/SEO paper enhancements ===== */
 .paper-h{
   font-family: var(--serif);
   font-weight: 500;

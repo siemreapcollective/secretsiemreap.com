@@ -10,39 +10,26 @@
   // -------------------------
   const track = (eventName, params = {}) => {
     try {
-      // Google Analytics (gtag)
       if (typeof window.gtag === "function") {
         window.gtag("event", eventName, params);
         return;
       }
-
-      // Plausible
       if (typeof window.plausible === "function") {
         window.plausible(eventName, { props: params });
         return;
       }
-
-      // Google Tag Manager / generic dataLayer
       if (Array.isArray(window.dataLayer)) {
         window.dataLayer.push({ event: eventName, ...params });
         return;
       }
-
-      // Safe fallback (no-op in production; helpful during setup)
-      // eslint-disable-next-line no-console
       console.debug("[analytics]", eventName, params);
     } catch {
       // swallow
     }
   };
 
-  // Track a basic page view (safe to keep even before analytics is installed)
-  track("page_view", {
-    path: location.pathname,
-    title: document.title,
-  });
+  track("page_view", { path: location.pathname, title: document.title });
 
-  // Track CTA clicks (anything with data-cta)
   document.addEventListener("click", (e) => {
     const a = e.target?.closest?.("a[data-cta]");
     if (!a) return;
@@ -98,7 +85,6 @@
       span.textContent = text;
       trackEl.appendChild(span);
     });
-    // Clone first item for seamless wrap
     if (trackEl.firstElementChild) {
       trackEl.appendChild(trackEl.firstElementChild.cloneNode(true));
     }
@@ -109,10 +95,8 @@
     if (!timed4 || !adjTrack || !countryTrack) return;
     rotatorStarted = true;
 
-    // Curated terms for Secret Siem Reap
     const adjectives = ["Quiet", "Hidden", "After-dark"];
     const placesRest = shuffleInPlace(["Angkor", "Cambodia"]);
-    // Start blank so the first visible location appears after 1.5s
     const places = ["", "Siem Reap", ...placesRest];
 
     buildTrack(adjTrack, adjectives);
@@ -136,7 +120,6 @@
         window.setTimeout(() => {
           trackEl.style.transition = "none";
           trackEl.style.transform = "translateY(0em)";
-          // force reflow
           trackEl.offsetHeight;
           trackEl.style.transition = "transform 520ms cubic-bezier(.22,.9,.26,1)";
         }, moveDuration + 30);
@@ -145,23 +128,19 @@
       return index;
     };
 
-    // init
     adjTrack.style.transform = "translateY(0em)";
     countryTrack.style.transform = "translateY(0em)";
 
-    // First location appears after 1.5s: "" -> Siem Reap
     window.setTimeout(() => {
       placeIndex = 1;
       move(countryTrack, placeIndex);
     }, delayBetween);
 
     const cycle = () => {
-      // adjective now
       adjIndex += 1;
       move(adjTrack, adjIndex);
       adjIndex = snapIfNeeded(adjTrack, adjIndex, adjectives.length);
 
-      // location after 1.5s
       window.setTimeout(() => {
         placeIndex += 1;
         move(countryTrack, placeIndex);
@@ -172,7 +151,6 @@
     window.setInterval(cycle, cycleMs);
   };
 
-  // Start rotator when timed4 becomes visible
   if (timed4 && "IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
@@ -189,12 +167,12 @@
   }
 
   // -------------------------
-  // Scroll reveal animations (no CSS changes needed)
+  // Scroll reveal animations
   // -------------------------
   const revealTargets = [
     ...qsa("[data-reveal]"),
     ...qsa(".paper, .paper-card, .paper-note, .paper-actions, .tile, .section, .callout"),
-  ].filter((el, idx, arr) => arr.indexOf(el) === idx); // dedupe
+  ].filter((el, idx, arr) => arr.indexOf(el) === idx);
 
   const prefersReducedMotion = (() => {
     try {
@@ -207,19 +185,11 @@
   const animateIn = (el) => {
     if (!el || el.dataset.revealed === "1") return;
     el.dataset.revealed = "1";
-
     if (prefersReducedMotion) return;
 
     el.animate(
-      [
-        { opacity: 0, transform: "translateY(10px)" },
-        { opacity: 1, transform: "translateY(0px)" },
-      ],
-      {
-        duration: 520,
-        easing: "cubic-bezier(.22,.9,.26,1)",
-        fill: "both",
-      }
+      [{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "translateY(0px)" }],
+      { duration: 520, easing: "cubic-bezier(.22,.9,.26,1)", fill: "both" }
     );
   };
 
@@ -234,9 +204,8 @@
             }
           });
         },
-        { root: null, threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+        { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
       );
-
       revealTargets.forEach((el) => rio.observe(el));
     } else {
       revealTargets.forEach(animateIn);
@@ -253,7 +222,7 @@
   const openDrawer = () => {
     if (!navPanel) return;
     navPanel.hidden = false;
-    navPanel.classList.add("is-open"); // required for slide-in CSS
+    navPanel.classList.add("is-open");
     navToggle?.setAttribute("aria-expanded", "true");
     drawerState.open = true;
     track("nav_open", { path: location.pathname });
@@ -265,7 +234,6 @@
     navToggle?.setAttribute("aria-expanded", "false");
     drawerState.open = false;
 
-    // Wait for slide-out transition, then hide (prevents click-through)
     window.setTimeout(() => {
       if (!drawerState.open) navPanel.hidden = true;
     }, 260);
@@ -286,30 +254,57 @@
     if (!link) return;
 
     link.addEventListener("click", (e) => {
-      // If it's already open, allow navigation on second click
-      if (item.classList.contains("is-open")) return;
-
-      // First click opens the dropdown instead of navigating
+      if (item.classList.contains("is-open")) return; // second click navigates
       e.preventDefault();
-
-      // Close others, open this one
       closeAllDropdowns();
       item.classList.add("is-open");
     });
   });
 
-  // Close dropdowns on outside click (but ignore clicks inside dropdown)
   document.addEventListener("click", (e) => {
     const clickedDropdownItem = e.target?.closest?.(".nav-item.has-dropdown");
     const clickedDropdownPanel = e.target?.closest?.(".dropdown");
-
-    if (!clickedDropdownItem && !clickedDropdownPanel) {
-      closeAllDropdowns();
-    }
+    if (!clickedDropdownItem && !clickedDropdownPanel) closeAllDropdowns();
   });
 
   // -------------------------
-  // Global ESC + outside click handling
+  // Compact header on scroll (45px)
+  // -------------------------
+  const headerEl = qs(".site-header");
+  let lastCompact = null;
+  let ticking = false;
+
+  const computeCompact = () => {
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    return y > 40; // adjust trigger if you want earlier/later
+  };
+
+  const applyCompact = () => {
+    ticking = false;
+    if (!headerEl) return;
+
+    const shouldCompact = computeCompact();
+    if (shouldCompact === lastCompact) return;
+
+    lastCompact = shouldCompact;
+    headerEl.classList.toggle("is-compact", shouldCompact);
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(applyCompact);
+    },
+    { passive: true }
+  );
+
+  // Set initial state (if page loads scrolled)
+  applyCompact();
+
+  // -------------------------
+  // Global ESC + outside click
   // -------------------------
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
