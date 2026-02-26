@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Secret Siem Reap | Hidden Gems & Luxury Guide to Siem Reap, Cambodia</title>
-
   <meta name="description" content="An independent editorial guide to hidden bars, quiet temples, luxury hotels, fine dining and curated experiences in Siem Reap, Cambodia." />
-
   <meta name="robots" content="noindex, nofollow" />
-  <!-- REMOVE robots tag when going live -->
-
   <link rel="canonical" href="https://secretsiemreap.com/" />
 
-  <!-- Base (for GitHub staging vs custom domain) -->
   <base id="site-base" href="/" />
   <script>
     (function () {
@@ -24,80 +19,10 @@
     })();
   </script>
 
-  <!-- Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-
-  <!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Secret Siem Reap" />
-  <meta property="og:title" content="Secret Siem Reap | Hidden Gems & Luxury Guide to Siem Reap" />
-  <meta property="og:description" content="Hidden bars, luxury hotels, fine dining and curated experiences in Siem Reap, Cambodia." />
-  <meta property="og:url" content="https://secretsiemreap.com/" />
-  <meta property="og:image" content="https://secretsiemreap.com/resources/og-cover.jpg" />
-  <meta property="og:locale" content="en_US" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Secret Siem Reap | Hidden Gems & Luxury Guide" />
-  <meta name="twitter:description" content="Luxury hotels, hidden bars and curated experiences in Siem Reap." />
-  <meta name="twitter:image" content="https://secretsiemreap.com/resources/og-cover.jpg" />
-
-  <!-- Geo Signals -->
-  <meta name="geo.region" content="KH-SR" />
-  <meta name="geo.placename" content="Siem Reap" />
-  <meta name="geo.position" content="13.3671;103.8448" />
-  <meta name="ICBM" content="13.3671, 103.8448" />
-
-  <!-- Structured Data: Organization -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Secret Siem Reap",
-    "url": "https://secretsiemreap.com",
-    "logo": "https://secretsiemreap.com/resources/nav-logo.png",
-    "sameAs": []
-  }
-  </script>
-
-  <!-- Structured Data: WebSite -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": "https://secretsiemreap.com/#website",
-    "url": "https://secretsiemreap.com/",
-    "name": "Secret Siem Reap",
-    "inLanguage": "en",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://secretsiemreap.com/?s={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-
-  <!-- Structured Data: Local Business (Editorial Brand Positioned in Siem Reap) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TouristInformationCenter",
-    "name": "Secret Siem Reap",
-    "areaServed": {
-      "@type": "Place",
-      "name": "Siem Reap, Cambodia"
-    }
-  }
-  </script>
-
 </head>
 
 <body>
@@ -105,22 +30,35 @@
 
 <header class="site-header" id="top">
   <div class="nav-inner">
-   <!-- <a class="brand" href="" aria-label="Secret Siem Reap home">
-      <img class="nav-logo" src="resources/nav-logo.png" width="44" height="44" alt="Golden Lotus" decoding="async" loading="eager" />
-    </a>
--->
     <nav class="nav" aria-label="Primary">
+
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
         <span class="nav-toggle-bars" aria-hidden="true"></span>
         <span class="sr-only">Menu</span>
       </button>
 
+      <!-- DESKTOP NAV -->
       <ul class="top-nav" role="list">
 
         <li class="nav-item">
-          <a class="top-link" href="siem-reap-hidden-gems/">Hidden Gems</a>
+          <a class="top-link" href="hidden-gems/">Hidden Gems</a>
         </li>
 
+        <!-- GUIDE DROPDOWN -->
+        <li class="nav-item has-dropdown" data-dropdown="guide">
+          <a class="top-link" href="guide/">Siem Reap Guide</a>
+          <div class="dropdown" aria-label="Siem Reap Guide submenu">
+            <div class="dropdown-inner">
+              <a class="dd-link" href="siem-reap-history/">History</a>
+              <a class="dd-link" href="siem-reap-nature/">Nature</a>
+              <a class="dd-link" href="siem-reap-nature/wildlife/">Wildlife</a>
+              <a class="dd-link" href="siem-reap-food/">Food</a>
+              <a class="dd-link" href="siem-reap-arts/">Arts</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- LUXURY DROPDOWN -->
         <li class="nav-item has-dropdown" data-dropdown="luxury">
           <a class="top-link" href="luxury/siem-reap-luxury-guide/">Luxury</a>
           <div class="dropdown" aria-label="Luxury submenu">
@@ -135,22 +73,22 @@
         </li>
 
         <li class="nav-item">
-          <a class="top-link" href="foodies/">Foodies</a>
-        </li>
-
-        <li class="nav-item">
           <a class="top-link" href="about/">About</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="top-link" href="contact/">Contact</a>
         </li>
 
       </ul>
 
+      <!-- MOBILE DRAWER -->
       <div class="nav-panel" id="nav-panel" hidden>
         <div class="nav-panel-inner">
-          <a class="nav-link" href="siem-reap-hidden-gems/">> Hidden Gems</a>
+          <a class="nav-link" href="hidden-gems/">Hidden Gems</a>
+
+          <a class="nav-link" href="guide/">Siem Reap Guide</a>
+          <a class="nav-link" href="siem-reap-history/">Guide: History</a>
+          <a class="nav-link" href="siem-reap-nature/">Guide: Nature</a>
+          <a class="nav-link" href="siem-reap-nature/wildlife/">Guide: Wildlife</a>
+          <a class="nav-link" href="siem-reap-food/">Guide: Food</a>
+          <a class="nav-link" href="siem-reap-arts/">Guide: Arts</a>
 
           <a class="nav-link" href="luxury/siem-reap-luxury-guide/">Luxury Guide</a>
           <a class="nav-link" href="luxury/siem-reap-deluxe-hotels/">Deluxe Hotels</a>
@@ -158,156 +96,127 @@
           <a class="nav-link" href="luxury/siem-reap-luxury-spa/">High-End Spa</a>
           <a class="nav-link" href="luxury/siem-reap-unique-experiences/">Experiences</a>
 
-          <a class="nav-link" href="foodies/">Foodies</a>
           <a class="nav-link" href="about/">About</a>
           <a class="nav-link" href="contact/">Contact</a>
         </div>
       </div>
+
     </nav>
   </div>
 </header>
+
 <div class="page-shell">
 <main id="main">
 
- <section class="hero" id="hero" aria-label="Siem Reap hero">
-      <div class="hero-media" aria-hidden="true">
-        <picture class="hero-poster">
-          <source type="image/webp" srcset="resources/hero-cinematic-1920.webp">
-          <img
-            src="resources/hero-cinematic-1920.jpg"
-            width="1920"
-            height="1080"
-            alt=""
-            decoding="async"
-            fetchpriority="high"
-          />
-        </picture>
-      </div>
+  <!-- HERO -->
+  <section class="hero" aria-label="Siem Reap hero">
+    <div class="hero-media" aria-hidden="true">
+      <picture class="hero-poster">
+        <source type="image/webp" srcset="resources/hero-cinematic-1920.webp">
+        <img src="resources/hero-cinematic-1920.jpg" width="1920" height="1080" alt="" decoding="async" fetchpriority="high"/>
+      </picture>
+    </div>
 
-      <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
 
-      <!--
-       <div class="hero-brand" aria-label="Golden Lotus">
-        <div class="hero-brand-inner">
-          <img class="brand-logo" src="resources/hero-logo.png" width="240" height="240" alt="Golden Lotus" decoding="async" fetchpriority="high" />
+    <div class="hero-timed">
+      <div class="hero-timed-inner">
+        <div class="timed-line timed-1 is-on">New discoveries?</div>
+        <div class="timed-line timed-2 is-on">In Siem Reap, they’re everywhere…</div>
+
+        <div class="timed-cta is-on">
+          <div class="timed-kicker">START HERE:</div>
+          <a class="btn btn-outline" href="hidden-gems/">EXPLORE HIDDEN GEMS</a>
         </div>
       </div>
-    -->
-      <div class="hero-timed">
-        <div class="hero-timed-inner">
-          <div class="timed-line timed-1" id="timed1" aria-live="polite">New discoveries?</div>
-          <div class="timed-line timed-2" id="timed2" aria-live="polite">In Siem Reap, they’re everywhere…</div>
+    </div>
+  </section>
 
-          <div class="timed-cta" id="timed3">
-            <div class="timed-kicker">START HERE:</div>
-            <a class="btn btn-outline" href="siem-reap-hidden-gems/" data-cta="hero_hidden_gems">EXPLORE HIDDEN GEMS</a>
-          </div>
+  <!-- INTRO SECTION -->
+  <section class="paper" aria-label="Secret Siem Reap overview">
+    <div class="paper-inner">
+      <h1 class="paper-title">The quieter side of Siem Reap</h1>
 
-          <div class="timed-rotator hero-rotator" id="timed4" aria-live="polite">
-            <span class="word-roller">
-              <span class="word-roller__window">
-                <span class="word-roller__track" id="adjTrack"></span>
-              </span>
-            </span>
-            discoveries in
-            <span class="word-roller country-roller">
-              <span class="word-roller__window">
-                <span class="word-roller__track" id="countryTrack"></span>
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
+      <p class="paper-lede">
+        An independent editorial guide to hidden bars, calm temples, atmosphere-led dining and quietly exceptional stays.
+        We focus on places that protect their character.
+      </p>
 
-    <section class="paper" aria-label="Secret Siem Reap overview">
-      <div class="paper-inner">
-        <h1 class="paper-title">Header one</h1>
-        <p class="paper-lede">
-          Quiet temples, calm food, and reservation-first late nights — curated for travellers who want atmosphere, not crowds.
-          We keep a few entry details discreet on purpose.
-        </p>
+      <div class="paper-grid paper-grid--3">
 
-        <div class="paper-grid" role="list">
-          <div class="paper-card" role="listitem">
-            <h2 class="paper-h">Quiet routes &amp; temples</h2>
-            <p class="paper-p">
-              Sunrise without the crush, temples that still feel like a discovery, and timing tips that make Angkor feel calm again.
-            </p>
-          </div>
-
-          <div class="paper-card" role="listitem">
-            <h2 class="paper-h">Food with real atmosphere</h2>
-            <p class="paper-p">
-              Spots chosen for vibe and consistency — not “top 10” filler. The kind of places you end up returning to.
-            </p>
-          </div>
-
-          <div class="paper-card" role="listitem">
-            <h2 class="paper-h">Reservation-first nights</h2>
-            <p class="paper-p">
-              Courtyards, back rooms, and speakeasy energy. Some venues limit entry to protect the night — and it shows.
-            </p>
-          </div>
-        </div>
-
-        <div class="paper-note">
+        <div class="paper-card">
+          <h2 class="paper-h">Quiet routes & temples</h2>
           <p class="paper-p">
-            Start with the pillar guide, then branch into the late-night lists. If you want the discreet notes,
-            use the contact page and we’ll share what you need.
+            Sunrise without the crush. Lesser-known temples. Timing that restores calm to Angkor.
           </p>
         </div>
 
-        <div class="paper-actions">
-          <a class="btn btn-dark" href="siem-reap-hidden-gems/" data-cta="home_pillar">Open the Hidden Gems guide</a>
-          <a class="btn btn-ghost" href="contact/" data-cta="home_contact">Request discreet notes</a>
+        <div class="paper-card">
+          <h2 class="paper-h">Food with atmosphere</h2>
+          <p class="paper-p">
+            Restaurants chosen for feeling, not algorithms — places worth returning to.
+          </p>
         </div>
+
+        <div class="paper-card">
+          <h2 class="paper-h">Reservation-first nights</h2>
+          <p class="paper-p">
+            Courtyards, private bars, and discreet spaces that prioritise experience over volume.
+          </p>
+        </div>
+
       </div>
-    </section>
+
+      <div class="paper-actions">
+        <a class="btn btn-dark" href="hidden-gems/">Open the Hidden Gems guide</a>
+        <a class="btn btn-ghost" href="guide/">Read the Siem Reap Guide</a>
+      </div>
+
+    </div>
+  </section>
 
 </main>
-</div><!-- end page shell -->
-<footer class="site-footer" role="contentinfo">
+</div>
+
+<footer class="site-footer">
   <div class="footer-inner">
 
     <div class="footer-intro">
       <p>
         Secret Siem Reap is an independent editorial publication covering hidden bars,
-        luxury hotels and atmosphere-led travel in Siem Reap, Cambodia. <a class="text-link" href="/">Discover more</a>
+        luxury hotels and atmosphere-led travel in Siem Reap, Cambodia.
       </p>
     </div>
 
-    <nav class="footer-grid" aria-label="Footer Navigation">
+    <nav class="footer-grid">
 
       <div class="footer-col">
         <h3>Hidden Gems</h3>
-        <a href="siem-reap-hidden-gems/">Guide</a>
-        <a href="siem-reap-hidden-gems/hidden-bars/">Hidden Bars</a>
-        <a href="siem-reap-hidden-gems/speakeasy-bars/">Speakeasies</a>
+        <a href="hidden-gems/">Guide</a>
+        <a href="hidden-gems/hidden-bars/">Hidden Bars</a>
+        <a href="hidden-gems/quiet-places/">Quiet Places</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Guide</h3>
+        <a href="siem-reap-history/">History</a>
+        <a href="siem-reap-nature/">Nature</a>
+        <a href="siem-reap-nature/wildlife/">Wildlife</a>
+        <a href="siem-reap-food/">Food</a>
+        <a href="siem-reap-arts/">Arts</a>
       </div>
 
       <div class="footer-col">
         <h3>Luxury</h3>
         <a href="luxury/siem-reap-luxury-guide/">Luxury Guide</a>
         <a href="luxury/siem-reap-deluxe-hotels/">Deluxe Hotels</a>
-        <a href="luxury/siem-reap-fine-dining/">Fine Dining</a>
-        <a href="luxury/siem-reap-luxury-spa/">High-End Spas</a>
-        <a href="luxury/siem-reap-unique-experiences/">Experiences</a>
-      </div>
-
-      <div class="footer-col">
-        <h3>Editorial</h3>
-        <a href="foodies/">Foodies</a>
-        <a href="about/">About</a>
-        <a href="editorial-policy/">Editorial Policy</a>
       </div>
 
       <div class="footer-col">
         <h3>Practical</h3>
         <a href="contact/">Contact</a>
+        <a href="editorial-policy/">Editorial Policy</a>
         <a href="privacy/">Privacy Policy</a>
-        <a href="terms/">Terms</a>
-        <a href="sitemap/">Site Map</a>
       </div>
 
     </nav>
