@@ -3,12 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Remove noindex when live -->
-  <meta name="robots" content="noindex">
-  <title>Secret Siem Reap — Hidden gems, quiet routes, and late-night places worth finding</title>
+
+  <title>Secret Siem Reap — Hidden gems, secret local spots, and late-night places worth finding</title>
   <meta name="description" content="A curated guide to Siem Reap beyond the obvious: secret temples, calm food, quiet sunrise routes, and reservation-first late nights." />
   <link rel="canonical" href="https://secretsiemreap.com/" />
-  <meta name="robots" content="index,follow" />
+  <!-- Remove when live -->
+  <meta name="robots" content="noindex" />
+  <!-- Base href fixes GitHub Pages project path vs custom domain -->
+  <base id="site-base" href="/" />
+  <script>
+    (function () {
+      var repo = "secretsiemreap.com";
+      var base = "/";
+      if (location.hostname.endsWith("github.io")) base = "/" + repo + "/";
+      document.getElementById("site-base").setAttribute("href", base);
+    })();
+  </script>
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
@@ -18,7 +28,8 @@
   <meta property="og:url" content="https://secretsiemreap.com/" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <link rel="stylesheet" href="/styles.css" />
+  <!-- Use relative paths (base tag handles staging vs live) -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -26,9 +37,8 @@
 
   <header class="site-header" id="top">
     <div class="nav-inner">
-      <a class="brand" href="/" aria-label="Secret Siem Reap home">
-        <!-- Disguised logo for now -->
-        <img class="nav-logo" src="/resources/nav-logo.png" width="44" height="44" alt="New Discoveries" decoding="async" loading="eager" />
+      <a class="brand" href="" aria-label="Secret Siem Reap home">
+        <img class="nav-logo" src="resources/nav-logo.png" width="44" height="44" alt="Golden Lotus" decoding="async" loading="eager" />
       </a>
 
       <nav class="nav" aria-label="Primary">
@@ -38,21 +48,20 @@
         </button>
 
         <ul class="top-nav" role="list">
-          <li class="nav-item"><a class="top-link" href="/siem-reap-hidden-gems/">Hidden Gems</a></li>
-          <li class="nav-item"><a class="top-link" href="/siem-reap-hidden-gems/hidden-bars/">Hidden Bars</a></li>
-          <li class="nav-item"><a class="top-link" href="/siem-reap-hidden-gems/speakeasy-bars/">Speakeasies</a></li>
-          <li class="nav-item"><a class="top-link" href="/about/">About</a></li>
-          <li class="nav-item"><a class="top-link" href="/contact/">Contact</a></li>
+          <li class="nav-item"><a class="top-link" href="siem-reap-hidden-gems/">Hidden Gems</a></li>
+          <li class="nav-item"><a class="top-link" href="siem-reap-hidden-gems/hidden-bars/">Hidden Bars</a></li>
+          <li class="nav-item"><a class="top-link" href="siem-reap-hidden-gems/speakeasy-bars/">Speakeasies</a></li>
+          <li class="nav-item"><a class="top-link" href="about/">About</a></li>
+          <li class="nav-item"><a class="top-link" href="contact/">Contact</a></li>
         </ul>
 
-        <!-- Mobile drawer -->
         <div class="nav-panel" id="nav-panel" hidden>
           <div class="nav-panel-inner">
-            <a class="nav-link" href="/siem-reap-hidden-gems/">Hidden Gems</a>
-            <a class="nav-link" href="/siem-reap-hidden-gems/hidden-bars/">Hidden Bars</a>
-            <a class="nav-link" href="/siem-reap-hidden-gems/speakeasy-bars/">Speakeasies</a>
-            <a class="nav-link" href="/about/">About</a>
-            <a class="nav-link" href="/contact/">Contact</a>
+            <a class="nav-link" href="siem-reap-hidden-gems/">Hidden Gems</a>
+            <a class="nav-link" href="siem-reap-hidden-gems/hidden-bars/">Hidden Bars</a>
+            <a class="nav-link" href="siem-reap-hidden-gems/speakeasy-bars/">Speakeasies</a>
+            <a class="nav-link" href="about/">About</a>
+            <a class="nav-link" href="contact/">Contact</a>
           </div>
         </div>
       </nav>
@@ -62,21 +71,24 @@
   <main id="main">
     <section class="hero" id="hero" aria-label="Siem Reap hero">
       <div class="hero-media" aria-hidden="true">
-        <!-- Temporary: using the existing poster image from the ThaiLoveYou baseline.
-             Swap these files later for Siem Reap imagery. -->
         <picture class="hero-poster">
-          <source type="image/avif" srcset="/resources/hero-poster-1920.avif 1x, /resources/hero-poster-3840.avif 2x">
-          <source type="image/webp" srcset="/resources/hero-poster-1920.webp 1x, /resources/hero-poster-3840.webp 2x">
-          <img src="/resources/hero-poster-1920.jpg" width="1920" height="1080" alt="" decoding="async" fetchpriority="high" />
+          <source type="image/webp" srcset="resources/hero-cinematic-1920.webp">
+          <img
+            src="resources/hero-cinematic-1920.jpg"
+            width="1920"
+            height="1080"
+            alt=""
+            decoding="async"
+            fetchpriority="high"
+          />
         </picture>
       </div>
 
       <div class="hero-overlay" aria-hidden="true"></div>
 
-      <div class="hero-brand" aria-label="New Discoveries">
+      <div class="hero-brand" aria-label="Golden Lotus">
         <div class="hero-brand-inner">
-          <!-- Disguised logo for now -->
-          <img class="brand-logo" src="/resources/hero-logo.png" width="240" height="240" alt="New Discoveries" decoding="async" fetchpriority="high" />
+          <img class="brand-logo" src="resources/hero-logo.png" width="240" height="240" alt="Golden Lotus" decoding="async" fetchpriority="high" />
         </div>
       </div>
 
@@ -87,7 +99,7 @@
 
           <div class="timed-cta" id="timed3">
             <div class="timed-kicker">START HERE:</div>
-            <a class="btn btn-outline" href="/siem-reap-hidden-gems/" data-cta="hero_hidden_gems">EXPLORE HIDDEN GEMS</a>
+            <a class="btn btn-outline" href="siem-reap-hidden-gems/" data-cta="hero_hidden_gems">EXPLORE HIDDEN GEMS</a>
           </div>
 
           <div class="timed-rotator hero-rotator" id="timed4" aria-live="polite">
@@ -146,13 +158,13 @@
         </div>
 
         <div class="paper-actions">
-          <a class="btn btn-dark" href="/siem-reap-hidden-gems/" data-cta="home_pillar">Open the Hidden Gems guide</a>
-          <a class="btn btn-ghost" href="/contact/" data-cta="home_contact">Request discreet notes</a>
+          <a class="btn btn-dark" href="siem-reap-hidden-gems/" data-cta="home_pillar">Open the Hidden Gems guide</a>
+          <a class="btn btn-ghost" href="contact/" data-cta="home_contact">Request discreet notes</a>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="/main.js" defer></script>
+  <script src="main.js" defer></script>
 </body>
 </html>
