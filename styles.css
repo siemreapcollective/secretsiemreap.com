@@ -220,7 +220,7 @@ img{ max-width:100%; height:auto; display:block; }
 .nav-panel{
   position: fixed;
   inset: 0 0 0 auto;
-  width: min(420px, 92vw);
+  width: min(180px, 92vw);
   transform: translateX(105%);
   transition: transform var(--fade) var(--ease);
   background: rgba(0,0,0,.72);
@@ -258,44 +258,44 @@ img{ max-width:100%; height:auto; display:block; }
 .nav-item.has-dropdown::after{
   content:"";
   position:absolute;
-  left:-18px;
-  right:-18px;
+  left:0;
+  right:0;
   top:100%;
-  height:34px;
+  height:28px;
 }
 
 .dropdown{
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(12px);
   top: calc(100% + 16px);
-  width: min(420px, calc(100vw - (var(--gutter) * 2)));
-  background: rgba(0,0,0,.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--line);
+  left: 0;                                 /* align to nav item */
+  transform: translateY(12px);
 
+  width: min(250px, calc(100vw - (var(--gutter) * 2)));
+  max-width: 90vw;
+
+  background: #111;                         /* cleaner than rgba blur */
+  border: 1px solid rgba(255,255,255,.08);
   border-radius: 0;
   padding: 0;
 
   opacity: 0;
   pointer-events: none;
+
   transition:
-    opacity 240ms var(--ease),
-    transform 300ms var(--ease),
-    filter 300ms var(--ease);
-  box-shadow: 0 24px 80px rgba(0,0,0,.35);
-  filter: blur(2px);
+    opacity 220ms var(--ease),
+    transform 260ms var(--ease);
+
+  box-shadow: 0 18px 50px rgba(0,0,0,.25);
   z-index: 80;
 }
 
+/* Show state */
 .nav-item.is-open .dropdown,
 .nav-item.has-dropdown:hover .dropdown,
 .nav-item.has-dropdown:focus-within .dropdown{
   opacity: 1;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-  filter: blur(0);
+  transform: translateY(0);
 }
 
 .dropdown-inner{
@@ -910,12 +910,6 @@ img{ max-width:100%; height:auto; display:block; }
   .paper-title{ font-size: clamp(34px, 9vw, 54px); }
 }
 
-/* =========================
-   Aman energy overrides
-   - lower-case menus
-   - calmer tracking
-   - ivory/dark CTA styling (cleaner)
-   ========================= */
 
 /* Menus: natural case (lowercase feel), less tracking, slightly larger */
 .top-link,
