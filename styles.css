@@ -8,13 +8,17 @@
   --container: 1180px;
   --gutter: clamp(16px, 4vw, 44px);
 
-  --serif: "Playfair Display", Georgia, serif;
-  --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 
   --ease: cubic-bezier(.22,.9,.26,1);
   --fade: 240ms;
   --fadeLong: 900ms;
   --line: color-mix(in oklab, var(--bone) 18%, transparent);
+
+  --track-caps: 0.28em;   /* airy-style all caps */
+  --track-link: 0.12em;   /* airy-style links */
+  --track-body: 0.01em;  
 }
 
 *{ box-sizing:border-box; }
@@ -23,12 +27,10 @@ html, body{ height:100%; }
 body{
   margin:0;
   font-family: var(--sans);
-  color: var(--bone);
-  background:
-    radial-gradient(1200px 700px at 45% 10%, rgba(255,255,255,.05), transparent 70%),
-    linear-gradient(180deg, var(--ocean) 0%, color-mix(in oklab, var(--ocean) 85%, #000) 100%);
+  background: #f7f5f0; /* warm ivory */
+  color: #1a1a1a;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: var(--track-body);
 }
 
 a{ color:inherit; }
@@ -61,14 +63,14 @@ img{ max-width:100%; height:auto; display:block; }
 }
 
 /* =========================================================
-   NAV (minimal + elegant like your screenshot)
+   NAV (minimal + elegant)
    ========================================================= */
 .site-header{
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
-  padding: calc(18px + env(safe-area-inset-top, 0px)) var(--gutter) 0;
-  pointer-events: none;
+  padding: 26px var(--gutter) 0;
+  background: transparent;
 }
 
 .nav-inner{
@@ -96,23 +98,23 @@ img{ max-width:100%; height:auto; display:block; }
   list-style:none;
   display:flex;
   align-items:center;
-  gap: clamp(26px, 4vw, 54px);
+  gap: clamp(34px, 4.8vw, 86px); 
 }
 
 .top-link{
   text-decoration:none;
-  font-size: 13px;
-  letter-spacing: .20em;
+  font-size: 12px;               /* small + premium */
+  letter-spacing: var(--track-caps);
   text-transform: uppercase;
-  opacity: .95;
-  padding-bottom: 10px;
+  font-weight: 400;
+  padding-bottom: 12px;
   border-bottom: 1px solid transparent;
-  text-shadow: 0 12px 34px rgba(0,0,0,.45);
+  color:#1a1a1a;
 }
 
 .top-link:hover,
 .nav-item.is-open > .top-link{
-  border-bottom-color: color-mix(in oklab, var(--bone) 40%, transparent);
+  border-bottom-color: color-mix(in oklab, var(--gold) 55%, transparent);
 }
 
 .nav-toggle{
@@ -148,7 +150,7 @@ img{ max-width:100%; height:auto; display:block; }
 .nav-toggle-bars::before{ top:-7px; }
 .nav-toggle-bars::after{ top:7px; }
 
-/* Mega nav (hover + focus + JS adds .is-open for accessibility) */
+/* Mega nav (kept even if unused elsewhere) */
 .mega{
   position: absolute;
   left: 50%;
@@ -248,10 +250,111 @@ img{ max-width:100%; height:auto; display:block; }
   border-color: var(--line);
 }
 
+.nav-item.has-dropdown{
+  position: relative;
+}
+
+/* Hover bridge so menu doesn't collapse when moving slowly */
+.nav-item.has-dropdown::after{
+  content:"";
+  position:absolute;
+  left:-18px;
+  right:-18px;
+  top:100%;
+  height:34px;
+}
+
+.dropdown{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  top: calc(100% + 16px);
+  width: min(420px, calc(100vw - (var(--gutter) * 2)));
+  background: rgba(0,0,0,.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+
+  border-radius: 0;
+  padding: 0;
+
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 240ms var(--ease),
+    transform 300ms var(--ease),
+    filter 300ms var(--ease);
+  box-shadow: 0 24px 80px rgba(0,0,0,.35);
+  filter: blur(2px);
+  z-index: 80;
+}
+
+.nav-item.is-open .dropdown,
+.nav-item.has-dropdown:hover .dropdown,
+.nav-item.has-dropdown:focus-within .dropdown{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  filter: blur(0);
+}
+
+.dropdown-inner{
+  display:flex;
+  flex-direction: column;
+}
+
+.dd-link{
+  display:block;
+  text-decoration:none;
+  color: var(--bone);
+  letter-spacing: .11em;
+
+  /* ensure font doesn't "change" */
+  font-family: var(--sans);
+  font-weight: 400;
+
+  /* quieter nav */
+  text-transform: none;
+  letter-spacing: .06em;
+  font-size: 14px;
+
+  padding: 14px 18px;
+
+  border-bottom: 1px solid color-mix(in oklab, var(--bone) 12%, transparent);
+  background: transparent;
+
+  position: relative;
+  border-radius: 0;
+}
+
+.dd-link:last-child{
+  border-bottom: none;
+}
+
+/* subtle gold underline on hover */
+.dd-link::after{
+  content:"";
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:8px;
+  height:1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin:left;
+  transition: transform 240ms var(--ease);
+}
+
+.dd-link:hover::after{
+  transform: scaleX(1);
+}
+
+.dd-link:hover{
+  background: rgba(255,255,255,.04);
+}
 
 /* Letter-by-letter reveal (luxury cinematic) */
 .timed-line{
-  /* container becomes visible, characters animate in */
   white-space: nowrap;
 }
 .timed-line .char{
@@ -261,7 +364,6 @@ img{ max-width:100%; height:auto; display:block; }
   will-change: opacity, transform;
 }
 .timed-line .char.space{
-  /* keep visible spacing even when split into spans */
   width: .38em;
 }
 .timed-line.revealing .char{
@@ -438,6 +540,7 @@ img{ max-width:100%; height:auto; display:block; }
   letter-spacing: .01em;
 }
 
+/* CTA row */
 .timed-cta{
   margin-top: 18px;
   opacity: 0;
@@ -480,7 +583,7 @@ img{ max-width:100%; height:auto; display:block; }
 .btn-outline{ border-color: color-mix(in oklab, var(--bone) 55%, transparent); }
 
 /* =========================================================
-   Under fold (simple placeholder)
+   Under fold
    ========================================================= */
 .paper{
   background: #ffffff;
@@ -503,6 +606,26 @@ img{ max-width:100%; height:auto; display:block; }
   line-height: 1.9;
   color: rgba(18,18,18,.82);
   margin: 0;
+}
+
+.paper p,
+.paper-lede,
+.paper-p{
+  letter-spacing: var(--track-body);
+}
+
+.text-link{
+  display:inline-block;
+  font-family: var(--sans);
+  letter-spacing: var(--track-link);
+  text-transform: none;
+  text-decoration: none;
+  color: #1a1a1a;
+  padding-bottom: 8px;
+  border-bottom: 1px solid color-mix(in oklab, var(--charcoal) 55%, transparent);
+}
+.text-link:hover{
+  border-bottom-color: var(--gold);
 }
 
 @media (max-width: 980px){
@@ -538,8 +661,9 @@ img{ max-width:100%; height:auto; display:block; }
     margin-top: 0;
   }
 }
+
 /* ================================================
-   MOBILE FIXES (Version10 stable desktop preserved)
+   MOBILE FIXES (stable)
    ================================================ */
 @media (max-width: 520px){
 
@@ -567,9 +691,7 @@ img{ max-width:100%; height:auto; display:block; }
     right: auto !important;
     margin-top: 18px;
   }
-
 }
-
 
 /* =========================
    Couture nav refinements
@@ -616,117 +738,10 @@ img{ max-width:100%; height:auto; display:block; }
   filter: blur(0);
 }
 
-/* Film / Trips dropdown */
-.nav-item.has-dropdown{
-  position: relative;
-}
-
-.dropdown{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%) translateY(12px);
-  top: calc(100% + 16px);
-  width: min(180px, calc(100vw - (var(--gutter) * 2)));
-  background: rgba(0,0,0,.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--line);
-  border-radius: 0;
-  padding: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 240ms var(--ease),
-    transform 300ms var(--ease),
-    filter 300ms var(--ease);
-  box-shadow: 0 24px 80px rgba(0,0,0,.35);
-  filter: blur(2px);
-}
-
-.nav-item.is-open .dropdown,
-.nav-item.has-dropdown:hover .dropdown,
-.nav-item.has-dropdown:focus-within .dropdown{
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-  filter: blur(0);
-}
-
-/* Hover bridge so menu doesn't collapse when moving slowly */
-.nav-item.has-dropdown::after{
-  content:"";
-  position:absolute;
-  left:-18px;
-  right:-18px;
-  top:100%;
-  height:34px;
-}
-
-.dropdown-inner{
-  display:flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.dd-link{
-  display:block;
-  text-decoration:none;
-  color: var(--bone);
-
-  font-family: var(--sans);
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  font-size: 13px;
-
-  padding: 14px 18px;
-
-  border-bottom: 1px solid color-mix(in oklab, var(--bone) 12%, transparent);
-
-  position: relative;
-  background: transparent;
-}
-
-.dd-link:last-child{
-  border-bottom: none;
-}
-
-.dd-link::after{
-  content:"";
-  position:absolute;
-  left:18px;
-  right:18px;
-  bottom:8px;
-  height:1px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transform-origin:left;
-  transition: transform 240ms var(--ease);
-}
-
-.dd-link:hover::after{
-  transform: scaleX(1);
-}
-
-.dd-link:hover{
-  background: rgba(255,255,255,.04);
-}
-
 /* =========================
    Hero: inline CTA + timed rotator
    ========================= */
 
-.timed-cta{
-  display:flex;
-  align-items:center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.timed-kicker{
-  margin-bottom: 0; /* was 12px */
-}
-
-/* Rotator matches "It could be…" sizing */
 .timed-rotator{
   margin-top: 14px;
   opacity: 0;
@@ -792,8 +807,7 @@ img{ max-width:100%; height:auto; display:block; }
   .mega, .dropdown, .word-roller__track{ transition: none !important; }
 }
 
-
-/* Version15 CTA row */
+/* ===== Version15 CTA row ===== */
 @media (max-width: 680px){
   .timed-cta{
     flex-direction: column;
@@ -803,7 +817,7 @@ img{ max-width:100%; height:auto; display:block; }
   .timed-kicker{ margin-bottom: 10px; }
 }
 
-/* ===== Version14: GEO/SEO paper enhancements ===== */
+/* ===== GEO/SEO paper enhancements ===== */
 .paper-h{
   font-family: var(--serif);
   font-weight: 500;
@@ -852,12 +866,14 @@ img{ max-width:100%; height:auto; display:block; }
   margin-top: 22px;
 }
 .paper-actions--top{ margin-top: 18px; margin-bottom: 10px; }
+
 .btn-dark{
   border: 1px solid rgba(18,18,18,.22);
   background: rgba(18,18,18,.92);
   color: #fff;
 }
 .btn-dark:hover{ background: rgba(18,18,18,1); }
+
 .btn-ghost{
   border: 1px solid rgba(18,18,18,.18);
   background: transparent;
@@ -893,6 +909,53 @@ img{ max-width:100%; height:auto; display:block; }
   .paper-grid--2, .paper-grid--3{ grid-template-columns: 1fr; }
   .paper-title{ font-size: clamp(34px, 9vw, 54px); }
 }
+
+/* =========================
+   Aman energy overrides
+   - lower-case menus
+   - calmer tracking
+   - ivory/dark CTA styling (cleaner)
+   ========================= */
+
+/* Menus: natural case (lowercase feel), less tracking, slightly larger */
+.top-link,
+.nav-link{
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Desktop hover underline: subtle gold */
+.top-link:hover,
+.nav-item.is-open > .top-link{
+  border-bottom-color: color-mix(in oklab, var(--gold) 55%, transparent);
+}
+
+/* CTAs: ivory / charcoal, sharper */
+.btn{
+  border-radius: 0;
+  letter-spacing: .08em;
+  text-transform: none;
+  font-size: 14px;
+  padding: 12px 18px;
+}
+
+/* primary: ivory */
+.btn-outline{
+  background: var(--bone);
+  color: var(--charcoal);
+  border-color: color-mix(in oklab, var(--charcoal) 22%, transparent);
+}
+.btn-outline:hover{
+  background: color-mix(in oklab, var(--bone) 92%, #fff);
+}
+
+/* dark: charcoal (keep your existing .btn-dark, but harmonize edge) */
+.btn-dark{
+  border-color: color-mix(in oklab, var(--bone) 18%, transparent);
+}
+
 /* =========================
    Editorial SEO Footer
    ========================= */
