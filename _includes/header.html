@@ -1,0 +1,76 @@
+<header class="site-header" id="top">
+  <div class="nav-inner">
+    <nav class="nav" aria-label="Primary">
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="sr-only">Menu</span>
+      </button>
+
+      <!-- DESKTOP NAV -->
+      <ul class="top-nav" role="list">
+
+        <li class="nav-item keep-compact">
+          <a class="top-link" href="{{ '/hidden-gems-guide/siem-reap/' | relative_url }}">Hidden Gems</a>
+        </li>
+
+        <!-- GUIDE DROPDOWN -->
+        <li class="nav-item has-dropdown keep-compact" data-dropdown="guide">
+          <a class="top-link" href="{{ '/guide/' | relative_url }}">Siem Reap Guide</a>
+          <div class="dropdown" aria-label="Siem Reap Guide submenu">
+            <div class="dropdown-inner">
+              <a class="dd-link" href="{{ '/siem-reap-history/' | relative_url }}">History</a>
+              <a class="dd-link" href="{{ '/siem-reap-nature/' | relative_url }}">Nature</a>
+              <a class="dd-link" href="{{ '/siem-reap-nature/wildlife/' | relative_url }}">Wildlife</a>
+              <a class="dd-link" href="{{ '/siem-reap-food/' | relative_url }}">Food</a>
+              <a class="dd-link" href="{{ '/siem-reap-arts/' | relative_url }}">Arts</a>
+            </div>
+          </div>
+        </li>
+
+        <!-- LUXURY DROPDOWN -->
+        <li class="nav-item has-dropdown" data-dropdown="luxury">
+          <a class="top-link" href="{{ '/luxury/siem-reap-luxury-guide/' | relative_url }}">Luxury</a>
+          <div class="dropdown" aria-label="Luxury submenu">
+            <div class="dropdown-inner">
+              <a class="dd-link" href="{{ '/luxury/siem-reap-luxury-guide/' | relative_url }}">Luxury Guide</a>
+              <a class="dd-link" href="{{ '/luxury/siem-reap-deluxe-hotels/' | relative_url }}">Deluxe Hotels</a>
+              <a class="dd-link" href="{{ '/luxury/siem-reap-fine-dining/' | relative_url }}">Fine Dining</a>
+              <a class="dd-link" href="{{ '/luxury/siem-reap-luxury-spa/' | relative_url }}">High-End Spa</a>
+              <a class="dd-link" href="{{ '/luxury/siem-reap-unique-experiences/' | relative_url }}">Experiences</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="top-link" href="{{ '/about/' | relative_url }}">About</a>
+        </li>
+
+      </ul>
+
+      <!-- MOBILE DRAWER -->
+      <div class="nav-panel" id="nav-panel" hidden>
+        <div class="nav-panel-inner">
+          <a class="nav-link" href="{{ '/hidden-gems-guide/siem-reap/' | relative_url }}">Hidden Gems</a>
+
+          <a class="nav-link" href="{{ '/guide/' | relative_url }}">Siem Reap Guide</a>
+          <a class="nav-link" href="{{ '/siem-reap-history/' | relative_url }}">History</a>
+          <a class="nav-link" href="{{ '/siem-reap-nature/' | relative_url }}">Nature</a>
+          <a class="nav-link" href="{{ '/siem-reap-nature/wildlife/' | relative_url }}">Wildlife</a>
+          <a class="nav-link" href="{{ '/siem-reap-food/' | relative_url }}">Food</a>
+          <a class="nav-link" href="{{ '/siem-reap-arts/' | relative_url }}">Arts</a>
+
+          <a class="nav-link" href="{{ '/luxury/siem-reap-luxury-guide/' | relative_url }}">Luxury Guide</a>
+          <a class="nav-link" href="{{ '/luxury/siem-reap-deluxe-hotels/' | relative_url }}">Deluxe Hotels</a>
+          <a class="nav-link" href="{{ '/luxury/siem-reap-fine-dining/' | relative_url }}">Fine Dining</a>
+          <a class="nav-link" href="{{ '/luxury/siem-reap-luxury-spa/' | relative_url }}">High-End Spa</a>
+          <a class="nav-link" href="{{ '/luxury/siem-reap-unique-experiences/' | relative_url }}">Experiences</a>
+
+          <a class="nav-link" href="{{ '/about/' | relative_url }}">About</a>
+          <a class="nav-link" href="{{ '/contact/' | relative_url }}">Contact</a>
+        </div>
+      </div>
+
+    </nav>
+  </div>
+</header>

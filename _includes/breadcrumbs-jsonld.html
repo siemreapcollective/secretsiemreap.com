@@ -1,0 +1,77 @@
+{%- comment -%}
+Global BreadcrumbList JSON-LD.
+
+Defaults:
+- Uses URL segments as breadcrumb items.
+- Home is always first.
+
+Overrides:
+- If page.breadcrumbs is an array, it will use that.
+  Example in front matter:
+  breadcrumbs:
+    - name: Hidden Gems Guide
+      url: /hidden-gems-guide/
+    - name: Siem Reap
+      url: /hidden-gems-guide/siem-reap/
+    - name: Cute Local Coffee
+      url: /hidden-gems-guide/siem-reap/cute-local-coffee/
+
+Opt-out:
+- breadcrumbs: false
+{%- endcomment -%}
+
+{%- if page.breadcrumbs == false -%}
+  {%- comment -%} Disabled on this page {%- endcomment -%}
+{%- else -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ '/' | absolute_url }}"
+    }
+    {%- assign pos = 2 -%}
+
+    {%- if page.breadcrumbs and page.breadcrumbs.size > 0 -%}
+      {%- for c in page.breadcrumbs -%}
+        ,{
+          "@type": "ListItem",
+          "position": {{ pos }},
+          "name": {{ c.name | jsonify }},
+          "item": "{{ c.url | relative_url | absolute_url }}"
+        }
+        {%- assign pos = pos | plus: 1 -%}
+      {%- endfor -%}
+
+    {%- else -%}
+      {%- comment -%}
+      Auto-generate from URL segments.
+      We stop at the current page URL (with trailing slash), building cumulative paths.
+      {%- endcomment -%}
+
+      {%- assign clean = page.url | replace: 'index.html', '' -%}
+      {%- assign parts = clean | split: '/' -%}
+      {%- assign path = '' -%}
+
+      {%- for p in parts -%}
+        {%- if p == '' -%}{%- continue -%}{%- endif -%}
+        {%- assign path = path | append: '/' | append: p -%}
+        {%- assign name = p | replace: '-', ' ' | capitalize -%}
+
+        ,{
+          "@type": "ListItem",
+          "position": {{ pos }},
+          "name": {{ name | jsonify }},
+          "item": "{{ path | append: '/' | relative_url | absolute_url }}"
+        }
+        {%- assign pos = pos | plus: 1 -%}
+      {%- endfor -%}
+    {%- endif -%}
+  ]
+}
+</script>
+{%- endif -%}

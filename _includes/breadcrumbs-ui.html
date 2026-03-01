@@ -1,0 +1,57 @@
+{%- comment -%}
+Visible breadcrumb UI.
+
+- Uses page.breadcrumbs override if provided (array of {name,url})
+- Otherwise auto-generates from URL segments
+- Can be disabled with: breadcrumbs: false
+{%- endcomment -%}
+
+{%- if page.breadcrumbs == false -%}
+  {%- comment -%} Disabled on this page {%- endcomment -%}
+{%- else -%}
+
+  {%- assign crumbs = page.breadcrumbs -%}
+
+  {%- if crumbs == nil or crumbs.size == 0 -%}
+    {%- assign clean = page.url | replace: 'index.html', '' -%}
+    {%- assign parts = clean | split: '/' -%}
+    {%- assign path = '' -%}
+    {%- assign auto = '' | split: '' -%}
+
+    {%- for p in parts -%}
+      {%- if p == '' -%}{%- continue -%}{%- endif -%}
+      {%- assign path = path | append: '/' | append: p -%}
+      {%- assign name = p | replace: '-', ' ' | capitalize -%}
+      {%- capture item -%}{{ name }}|{{ path | append: '/' }}{%- endcapture -%}
+      {%- assign auto = auto | push: item -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <ol class="crumbs-list">
+      <li class="crumbs-item">
+        <a class="crumbs-link" href="{{ '/' | relative_url }}">Home</a>
+      </li>
+
+      {%- if crumbs and crumbs.size > 0 -%}
+        {%- for c in crumbs -%}
+          <li class="crumbs-item">
+            <span class="crumbs-sep" aria-hidden="true">/</span>
+            <a class="crumbs-link" href="{{ c.url | relative_url }}">{{ c.name }}</a>
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for item in auto -%}
+          {%- assign pair = item | split: '|' -%}
+          {%- assign n = pair[0] -%}
+          {%- assign u = pair[1] -%}
+          <li class="crumbs-item">
+            <span class="crumbs-sep" aria-hidden="true">/</span>
+            <a class="crumbs-link" href="{{ u | relative_url }}">{{ n }}</a>
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ol>
+  </nav>
+
+{%- endif -%}
